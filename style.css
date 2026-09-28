@@ -1,0 +1,554 @@
+/* ============================================================
+   Descubra o seu Signo — estilos próprios
+   Complementa o Bootstrap 5 em tema escuro
+   ============================================================ */
+
+:root {
+    --superficie: rgba(255, 255, 255, .055);
+    --superficie-forte: rgba(255, 255, 255, .09);
+    --borda: rgba(255, 255, 255, .12);
+    --texto-suave: #b8b2d8;
+    --raio: 22px;
+}
+
+/* ------------------------------------------------------------
+   Fundo geral
+   ------------------------------------------------------------ */
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(124, 92, 255, .38), transparent 55%),
+        radial-gradient(circle at 88% 18%, rgba(103, 232, 249, .18), transparent 50%),
+        radial-gradient(circle at 50% 105%, rgba(240, 171, 252, .18), transparent 55%),
+        linear-gradient(160deg, #120b2b 0%, #1b1340 45%, #0a0e22 100%);
+    background-attachment: fixed;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(1.6px 1.6px at 12% 22%, rgba(255, 255, 255, .85), transparent),
+        radial-gradient(1.4px 1.4px at 28% 68%, rgba(255, 255, 255, .55), transparent),
+        radial-gradient(1.8px 1.8px at 47% 12%, rgba(255, 255, 255, .75), transparent),
+        radial-gradient(1.3px 1.3px at 63% 82%, rgba(255, 255, 255, .50), transparent),
+        radial-gradient(1.7px 1.7px at 78% 32%, rgba(255, 255, 255, .70), transparent),
+        radial-gradient(1.4px 1.4px at 91% 60%, rgba(255, 255, 255, .60), transparent),
+        radial-gradient(1.5px 1.5px at 36% 44%, rgba(255, 255, 255, .45), transparent);
+    animation: cintilar 7s ease-in-out infinite alternate;
+}
+
+@keyframes cintilar {
+    from {
+        opacity: .45;
+    }
+
+    to {
+        opacity: .95;
+    }
+}
+
+.navbar,
+main,
+.rodape {
+    position: relative;
+    z-index: 1;
+}
+
+/* ------------------------------------------------------------
+   Barra superior e rodapé
+   ------------------------------------------------------------ */
+.barra-topo {
+    background: rgba(10, 8, 26, .55);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--borda);
+}
+
+.navbar-brand {
+    letter-spacing: .4px;
+}
+
+.marca-simbolo {
+    background: linear-gradient(135deg, #a78bfa, #67e8f9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.rodape {
+    color: var(--texto-suave);
+    border-top: 1px solid var(--borda);
+    margin-top: 3rem;
+}
+
+/* ------------------------------------------------------------
+   Tipografia com gradiente
+   ------------------------------------------------------------ */
+.titulo-gradiente {
+    background: linear-gradient(100deg, #a78bfa 0%, #f0abfc 45%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ------------------------------------------------------------
+   Cards base
+   ------------------------------------------------------------ */
+.card-form,
+.card-signo {
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+    color: #f3f1ff;
+}
+
+/* ------------------------------------------------------------
+   Formulário
+   ------------------------------------------------------------ */
+.card-form .form-control {
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    color: #fff;
+    padding: .85rem 1rem;
+}
+
+.card-form .form-control:focus {
+    background: rgba(255, 255, 255, .09);
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 .25rem rgba(167, 139, 250, .25);
+    color: #fff;
+}
+
+input[type="date"] {
+    color-scheme: dark;
+}
+
+.card-form .form-text {
+    color: var(--texto-suave);
+}
+
+.btn-destaque {
+    background: linear-gradient(100deg, #7c5cff 0%, #a855f7 50%, #22d3ee 100%);
+    border: none;
+    border-radius: 14px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    padding: .85rem 1.4rem;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+.btn-destaque:hover,
+.btn-destaque:focus {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(124, 92, 255, .45);
+    color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Cores por elemento
+   ------------------------------------------------------------ */
+.elemento-fogo {
+    --cor-elemento: #ff6b3d;
+    --cor-elemento-clara: #ffb347;
+    --cor-elemento-glow: rgba(255, 107, 61, .45);
+}
+
+.elemento-terra {
+    --cor-elemento: #3fbf85;
+    --cor-elemento-clara: #a8e6a1;
+    --cor-elemento-glow: rgba(63, 191, 133, .45);
+}
+
+.elemento-ar {
+    --cor-elemento: #4cc4f0;
+    --cor-elemento-clara: #c4ecff;
+    --cor-elemento-glow: rgba(76, 196, 240, .45);
+}
+
+.elemento-agua {
+    --cor-elemento: #7b6cff;
+    --cor-elemento-clara: #b6a8ff;
+    --cor-elemento-glow: rgba(123, 108, 255, .45);
+}
+
+.elemento-neutro {
+    --cor-elemento: #a78bfa;
+    --cor-elemento-clara: #ddd6fe;
+    --cor-elemento-glow: rgba(167, 139, 250, .45);
+}
+
+/* ------------------------------------------------------------
+   Card do signo — faixa superior colorida
+   ------------------------------------------------------------ */
+.card-signo {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-signo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg,
+            var(--cor-elemento),
+            var(--cor-elemento-clara));
+}
+
+/* ------------------------------------------------------------
+   Símbolo do signo
+   ------------------------------------------------------------ */
+.signo-simbolo {
+    width: 118px;
+    height: 118px;
+    margin: 0 auto 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.4rem;
+    line-height: 1;
+    border-radius: 50%;
+    color: #17102e;
+    background: radial-gradient(circle at 32% 28%,
+            var(--cor-elemento-clara),
+            var(--cor-elemento) 72%);
+    box-shadow:
+        0 0 0 6px rgba(255, 255, 255, .05),
+        0 0 48px var(--cor-elemento-glow);
+    animation: flutuar 4.5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+}
+
+/* ------------------------------------------------------------
+   Caixas de informação (elemento, modalidade, regente)
+   ------------------------------------------------------------ */
+.info-box {
+    height: 100%;
+    padding: 1rem .75rem;
+    text-align: center;
+    border-radius: 16px;
+    background: var(--superficie-forte);
+    border: 1px solid var(--borda);
+    transition: border-color .2s ease, transform .2s ease;
+}
+
+.info-box:hover {
+    border-color: var(--cor-elemento);
+    transform: translateY(-3px);
+}
+
+.info-box .rotulo {
+    display: block;
+    font-size: .7rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin-bottom: .35rem;
+}
+
+.info-box .valor {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Seções internas
+   ------------------------------------------------------------ */
+.secao-titulo {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.secao-titulo::before {
+    content: "";
+    width: 5px;
+    height: 1.15rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg,
+            var(--cor-elemento-clara),
+            var(--cor-elemento));
+}
+
+.texto-corpo {
+    color: #ded9f5;
+    line-height: 1.75;
+}
+
+/* ------------------------------------------------------------
+   Badges
+   ------------------------------------------------------------ */
+.badge-suave {
+    display: inline-block;
+    padding: .45rem .95rem;
+    font-size: .875rem;
+    font-weight: 500;
+    border-radius: 999px;
+    color: #fff;
+    background: var(--cor-elemento-glow);
+    border: 1px solid var(--cor-elemento);
+    transition: transform .18s ease, background .18s ease;
+}
+
+.badge-suave:hover {
+    transform: translateY(-2px);
+    background: var(--cor-elemento);
+    color: #17102e;
+}
+
+/* ------------------------------------------------------------
+   Mini cards dos 12 signos (index)
+   ------------------------------------------------------------ */
+.mini-signo {
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.mini-signo:hover {
+    transform: translateY(-4px);
+    border-color: var(--cor-elemento);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, .4);
+}
+
+.mini-simbolo {
+    font-size: 1.9rem;
+    line-height: 1;
+    margin-bottom: .4rem;
+    color: var(--cor-elemento-clara);
+}
+
+/* ============================================================
+   Bloco dinâmico — previsão do dia / semana
+   ============================================================ */
+
+.bloco-dinamico {
+    position: relative;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg,
+            rgba(124, 92, 255, .14),
+            rgba(34, 211, 238, .08));
+    border: 1px solid var(--cor-elemento, rgba(255, 255, 255, .15));
+    box-shadow: inset 0 0 40px rgba(124, 92, 255, .08);
+}
+
+.dinamico-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.dinamico-pulso {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--cor-elemento, #a78bfa);
+    box-shadow: 0 0 0 0 var(--cor-elemento-glow, rgba(167, 139, 250, .6));
+    animation: pulso 1.8s ease-out infinite;
+}
+
+@keyframes pulso {
+    0% {
+        box-shadow: 0 0 0 0 var(--cor-elemento-glow, rgba(167, 139, 250, .6));
+    }
+
+    70% {
+        box-shadow: 0 0 0 12px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+.dinamico-titulo {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+    letter-spacing: .3px;
+}
+
+.dinamico-periodo {
+    margin-left: auto;
+    font-size: .8rem;
+    padding: .25rem .7rem;
+    border-radius: 999px;
+    background: var(--cor-elemento-glow, rgba(167, 139, 250, .2));
+    border: 1px solid var(--cor-elemento, #a78bfa);
+    color: #fff;
+    white-space: nowrap;
+}
+
+.dinamico-previsao {
+    color: #eae6ff;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+}
+
+.info-dinamica {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    height: 100%;
+    padding: .85rem .95rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .1);
+    transition: border-color .2s ease, transform .2s ease;
+}
+
+.info-dinamica:hover {
+    border-color: var(--cor-elemento, #a78bfa);
+    transform: translateY(-2px);
+}
+
+.info-emoji {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.info-rotulo {
+    display: block;
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--texto-suave, #b8b2d8);
+    margin-bottom: .2rem;
+}
+
+.info-valor {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.info-dica {
+    display: block;
+    font-size: .82rem;
+    color: #c8c2e8;
+    margin-top: .25rem;
+    line-height: 1.45;
+}
+
+.cor-amostra {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .35);
+    box-shadow: 0 0 8px currentColor;
+}
+
+.dinamico-aviso {
+    margin: 1.25rem 0 0;
+    font-size: .78rem;
+    text-align: center;
+    color: var(--texto-suave, #b8b2d8);
+}
+
+.dinamico-aviso strong {
+    color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Ajustes responsivos
+   ------------------------------------------------------------ */
+@media (max-width: 575.98px) {
+    .signo-simbolo {
+        width: 96px;
+        height: 96px;
+        font-size: 2.7rem;
+    }
+
+    .card-signo,
+    .card-form {
+        border-radius: 18px;
+    }
+
+    .dinamico-periodo {
+        margin-left: 0;
+    }
+}
+
+/* ------------------------------------------------------------
+   Impressão
+   ------------------------------------------------------------ */
+@media print {
+    body {
+        background: #fff !important;
+        color: #000;
+    }
+
+    body::before,
+    .barra-topo,
+    .rodape,
+    .btn {
+        display: none !important;
+    }
+
+    .card-signo {
+        border: 1px solid #ccc;
+        box-shadow: none;
+        background: #fff;
+        color: #000;
+    }
+
+    .titulo-gradiente {
+        -webkit-text-fill-color: #000;
+        color: #000;
+    }
+
+    .bloco-dinamico {
+        background: #f7f7fb !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .dinamico-titulo,
+    .dinamico-previsao,
+    .info-valor {
+        color: #000 !important;
+    }
+
+    .dinamico-periodo {
+        background: #eee !important;
+        color: #000 !important;
+        border-color: #ccc !important;
+    }
+}
