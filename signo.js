@@ -1,24 +1,18 @@
 /* ============================================================
-   Handler da página de resultado (signo.html)
-   - Lê a data da query string (?data=YYYY-MM-DD)
-   - Valida e monta o card do signo
-   - Adiciona bloco DINÂMICO (previsão da semana, energia do dia,
-     número/cor da sorte, fase da lua) baseado na data de acesso
+   Handler da página de resultado do signo (signo.html)
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
-    const container = document.getElementById('resultado');
-    if (!container) return;
+  const container = document.getElementById('resultado');
+  if (!container) return;
 
-    /* ---------- Lê a data da URL ---------- */
-    const params = new URLSearchParams(window.location.search);
-    const data = params.get('data') || '';
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get('data') || '';
 
-    /* ---------- Valida ---------- */
-    const erro = validarDataNascimento(data);
+  const erro = validarDataNascimento(data);
 
-    if (erro !== null) {
-        container.innerHTML = `
+  if (erro !== null) {
+    container.innerHTML = `
       <div class="card card-form text-center p-4 p-md-5">
         <div class="display-4 mb-3">🔭</div>
         <h1 class="h4 mb-4">Ops! Não conseguimos identificar o signo</h1>
@@ -26,37 +20,41 @@ document.addEventListener('DOMContentLoaded', function () {
         <a href="index.html" class="btn btn-primary btn-destaque">Voltar e tentar novamente</a>
       </div>
     `;
-        return;
-    }
+    return;
+  }
 
-    /* ---------- Busca o signo ---------- */
-    const signo = buscarSignoPorData(data);
+  const signo = buscarSignoPorData(data);
 
-    if (!signo) {
-        container.innerHTML = `
+  if (!signo) {
+    container.innerHTML = `
       <div class="card card-form text-center p-4 p-md-5">
         <div class="display-4 mb-3">🔭</div>
         <h1 class="h4 mb-4">Signo não encontrado</h1>
         <a href="index.html" class="btn btn-primary btn-destaque">Voltar</a>
       </div>
     `;
-        return;
-    }
+    return;
+  }
 
-    /* ---------- Conteúdo DINÂMICO (muda por dia/semana) ---------- */
-    const dinamico = gerarConteudoDinamico(signo.slug);
+  const dinamico = gerarConteudoDinamico(signo.slug);
 
-    /* ---------- Monta as listas ---------- */
-    const caracteristicasHtml = signo.caracteristicas
-        .map(c => `<span class="badge-suave">${escaparHtml(c)}</span>`)
-        .join('');
+  const caracteristicasHtml = signo.caracteristicas
+    .map(c => `<span class="badge-suave">${escaparHtml(c)}</span>`)
+    .join('');
 
-    const afinidadesHtml = signo.afinidades
-        .map(a => `<span class="badge-suave">${escaparHtml(a)}</span>`)
-        .join('');
+  const afinidadesHtml = signo.afinidades
+    .map(a => `<span class="badge-suave">${escaparHtml(a)}</span>`)
+    .join('');
 
-    /* ---------- Renderiza ---------- */
-    container.innerHTML = `
+  const pontosFortesHtml = (signo.pontosFortes || [])
+    .map(p => `<li>${escaparHtml(p)}</li>`)
+    .join('');
+
+  const pontosFracosHtml = (signo.pontosFracos || [])
+    .map(p => `<li>${escaparHtml(p)}</li>`)
+    .join('');
+
+  container.innerHTML = `
     <article class="card card-signo ${classeElemento(signo.elemento)} p-4 p-md-5">
 
       <header class="text-center mb-4">
@@ -69,10 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
           Nascimento em ${formatarDataBR(data)}
         </p>
       </header>
-
-      <!-- ================================================ -->
-      <!--  BLOCO DINÂMICO: muda a cada dia e a cada semana  -->
-      <!-- ================================================ -->
 
       <section class="bloco-dinamico mb-4">
 
@@ -139,10 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       </section>
 
-      <!-- ================================================ -->
-      <!--  FIM DO BLOCO DINÂMICO                            -->
-      <!-- ================================================ -->
-
       <section class="mb-4">
         <h2 class="h5 secao-titulo">Sobre o signo</h2>
         <p class="mb-0 texto-corpo">${escaparHtml(signo.descricao)}</p>
@@ -151,6 +141,34 @@ document.addEventListener('DOMContentLoaded', function () {
       <section class="mb-4">
         <h2 class="h5 secao-titulo">Principais características</h2>
         <div class="d-flex flex-wrap gap-2">${caracteristicasHtml}</div>
+      </section>
+
+      <section class="mb-4">
+        <h2 class="h5 secao-titulo">Luz e sombra do signo</h2>
+
+        <div class="row g-3 mt-1">
+
+          <div class="col-12 col-lg-6">
+            <div class="card-lado lado-bom">
+              <div class="lado-cabecalho">
+                <span class="lado-emoji">🌟</span>
+                <span class="lado-titulo">Lado bom</span>
+              </div>
+              <ul class="lado-lista">${pontosFortesHtml}</ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="card-lado lado-ruim">
+              <div class="lado-cabecalho">
+                <span class="lado-emoji">⚠️</span>
+                <span class="lado-titulo">Lado ruim</span>
+              </div>
+              <ul class="lado-lista">${pontosFracosHtml}</ul>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <section class="mb-4">
@@ -167,9 +185,12 @@ document.addEventListener('DOMContentLoaded', function () {
         <a href="index.html" class="btn btn-primary btn-destaque flex-fill">
           🔄 Descobrir outro signo
         </a>
+        <a href="arcano.html" class="btn btn-outline-light flex-fill">
+          🎴 Descobrir meu arcano
+        </a>
         <button type="button" class="btn btn-outline-light flex-fill"
                 onclick="window.print()">
-          🖨️ Imprimir resultado
+          🖨️ Imprimir
         </button>
       </div>
 

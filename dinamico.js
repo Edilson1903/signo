@@ -1,14 +1,8 @@
 /* ============================================================
    Motor de conteúdo dinâmico
-   Gera previsões que mudam conforme o DIA e a SEMANA de acesso,
-   sempre coerentes com o signo do usuário.
-
-   Método: hash determinístico de (slug + chave-de-período)
-   → mesma semana + mesmo signo = mesmo resultado
-   → semana seguinte = resultado novo
+   Gera previsões que mudam conforme o DIA e a SEMANA de acesso.
    ============================================================ */
 
-/* ---------- Hash simples (estável entre acessos) ---------- */
 function hashString(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -22,9 +16,6 @@ function escolherPorSeed(lista, seed) {
     return lista[hashString(seed) % lista.length];
 }
 
-/* ---------- Chaves de período ---------- */
-
-/** Retorna "YYYY-MM-DD" do dia atual. */
 function chaveDia(date = new Date()) {
     const a = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -32,7 +23,6 @@ function chaveDia(date = new Date()) {
     return `${a}-${m}-${d}`;
 }
 
-/** Retorna "YYYY-Www" (semana ISO) do dia atual. */
 function chaveSemana(date = new Date()) {
     const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     const diaSemana = d.getUTCDay() || 7;
@@ -42,14 +32,12 @@ function chaveSemana(date = new Date()) {
     return `${d.getUTCFullYear()}-W${String(semana).padStart(2, '0')}`;
 }
 
-/** Retorna "YYYY-MM". */
 function chaveMes(date = new Date()) {
     const a = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
     return `${a}-${m}`;
 }
 
-/* ---------- Intervalo da semana (segunda a domingo) ---------- */
 function intervaloDaSemana(date = new Date()) {
     const d = new Date(date);
     const dia = d.getDay() || 7;
@@ -62,10 +50,6 @@ function intervaloDaSemana(date = new Date()) {
         String(dt.getMonth() + 1).padStart(2, '0');
     return `${fmt(segunda)} a ${fmt(domingo)}`;
 }
-
-/* ============================================================
-   Conteúdo base
-   ============================================================ */
 
 const TOM_POR_SIGNO = {
     aries: 'Sua energia impulsiva pede direção.',
@@ -145,9 +129,6 @@ const CORES_SORTE = [
     { nome: 'Preto', hex: '#22223b' }
 ];
 
-/* ============================================================
-   Fase da lua — cálculo astronômico simples
-   ============================================================ */
 function faseDaLua(date = new Date()) {
     const conhecida = new Date(Date.UTC(2000, 0, 6, 18, 14));
     const ciclo = 29.530588853;
@@ -165,7 +146,6 @@ function faseDaLua(date = new Date()) {
     return { nome: 'Lua Nova', emoji: '🌑' };
 }
 
-/** Retorna a data da próxima segunda-feira. */
 function proximaSegunda(date = new Date()) {
     const d = new Date(date);
     const dia = d.getDay() || 7;
@@ -175,9 +155,6 @@ function proximaSegunda(date = new Date()) {
         d.getFullYear();
 }
 
-/* ============================================================
-   Gera todo o bloco dinâmico para um signo
-   ============================================================ */
 function gerarConteudoDinamico(slugSigno, data = new Date()) {
     const dia = chaveDia(data);
     const semana = chaveSemana(data);

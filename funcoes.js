@@ -41,6 +41,32 @@ function validarDataNascimento(data) {
 }
 
 /**
+ * Valida o nome completo de nascimento.
+ * Retorna null se estiver OK, ou a mensagem de erro.
+ */
+function validarNomeCompleto(nome) {
+    if (!nome || !nome.trim()) {
+        return 'Informe o seu nome completo de nascimento.';
+    }
+
+    // Remove acentos e mantém apenas letras
+    const limpo = nome
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^A-Za-z]/g, '');
+
+    if (limpo.length < 3) {
+        return 'O nome precisa ter pelo menos 3 letras.';
+    }
+
+    if (limpo.length > 100) {
+        return 'Nome muito longo. Use apenas o nome de nascimento.';
+    }
+
+    return null;
+}
+
+/**
  * Descobre o signo a partir da data "YYYY-MM-DD".
  * Compara apenas o trecho "MM-DD", tratando o caso de Capricórnio,
  * que atravessa a virada do ano.

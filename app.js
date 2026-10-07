@@ -1,12 +1,9 @@
 /* ============================================================
    Handler da página inicial (index.html)
-   - Popula a lista dos 12 signos
-   - Valida o formulário e redireciona para signo.html
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ---------- Popula a grade dos 12 signos ---------- */
   const lista = document.getElementById('listaSignos');
 
   if (lista) {
@@ -25,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }).join('');
   }
 
-  /* ---------- Formulário ---------- */
   const form = document.getElementById('formSigno');
   if (!form) return;
 
